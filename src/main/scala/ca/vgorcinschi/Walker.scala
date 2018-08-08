@@ -37,7 +37,7 @@ object Walker {
     val pointC = pointHypotenuse(c, gamma).moveLeft(pointB.x).moveDown(pointB.y)
     val coHyptenuse = math.sqrt(math.pow(pointC.x, 2) + math.pow(pointC.y, 2))
     val sinC = math.sin(math.abs(pointC.x)/coHyptenuse)
-    val tOC = 180 - 90 - sinC
+    val tOC = 180 - sinC
     coHyptenuse.toInt +: degrees(tOC)
   }
 
