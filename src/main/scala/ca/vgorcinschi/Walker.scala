@@ -28,17 +28,20 @@ object Walker {
     def moveRight(by: Double) = Point(by + x, y)
     def moveUp(by: Double) = Point(x, by + y)
     def moveDown(by: Double) = Point(x, by - y)
+    def inverse() = Point(y, x)
   }
+
+  implicit def roundUpDoubleToInt(d: Double): Int = math.ceil(d).toInt
 
   def solve(a: Int, b: Int, c: Int, alpha: Int, beta: Int, gamma: Int): Array[Int] = {
     // your code
     val pointA = pointHypotenuse(a, alpha)
-    val pointB = pointHypotenuse(b, beta).moveLeft(pointA.x).moveUp(pointA.y)
+    val pointB = pointHypotenuse(b, beta).inverse().moveLeft(pointA.x).moveUp(pointA.y)
     val pointC = pointHypotenuse(c, gamma).moveLeft(pointB.x).moveDown(pointB.y)
     val coHyptenuse = math.sqrt(math.pow(pointC.x, 2) + math.pow(pointC.y, 2))
     val sinC = math.sin(math.abs(pointC.x)/coHyptenuse)
     val tOC = 180 - sinC
-    coHyptenuse.toInt +: degrees(tOC)
+    coHyptenuse +: degrees(tOC)
   }
 
   def pointHypotenuse(coteHypotenuse: Int, angleHypotenuse: Int): Point = {
